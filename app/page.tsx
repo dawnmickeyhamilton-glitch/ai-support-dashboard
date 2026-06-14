@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabase'
 
 export default function Home() {
-  const [tickets, setTickets] = useState([])
+ const [tickets, setTickets] = useState([])
 
   useEffect(() => {
     fetchTickets()
@@ -17,7 +17,7 @@ export default function Home() {
       .order('id', { ascending: false })
 
     if (!error) {
-   setTickets(data || [])
+      setTickets(data)
     }
   }
 
