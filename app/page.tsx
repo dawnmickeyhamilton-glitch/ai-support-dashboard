@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabase'
 
 export default function Home() {
- const [tickets, setTickets] = useState([])
+  const [tickets, setTickets] = useState<any[]>([])
 
   useEffect(() => {
     fetchTickets()
@@ -17,7 +17,7 @@ export default function Home() {
       .order('id', { ascending: false })
 
     if (!error) {
-      setTickets(data)
+      setTickets(data || [])
     }
   }
 
@@ -26,9 +26,12 @@ export default function Home() {
       <h1>AI Support Dashboard</h1>
 
       <table
-        border="1"
-        cellPadding="10"
-        style={{ borderCollapse: 'collapse', width: '100%' }}
+        border={1}
+        cellPadding={10}
+        style={{
+          borderCollapse: 'collapse',
+          width: '100%',
+        }}
       >
         <thead>
           <tr>
