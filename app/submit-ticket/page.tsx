@@ -6,97 +6,97 @@ export default function SubmitTicket() {
   const [customer_name, setCustomerName] = useState('')
   const [email, setEmail] = useState('')
   const [ticket_message, setTicketMessage] = useState('')
-  const [success, setSuccess] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    try {
-      await fetch('http://localhost:5678/webhook/support-ticket', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          customer_name,
-          email,
-          ticket_message,
-        }),
-      })
+    await fetch('http://localhost:5678/webhook/support-ticket', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        customer_name,
+        email,
+        ticket_message,
+      }),
+    })
 
-      setSuccess(true)
-      setCustomerName('')
-      setEmail('')
-      setTicketMessage('')
-    } catch (error) {
-      console.error(error)
-      alert('Failed to submit ticket')
-    }
+    alert('Ticket submitted successfully!')
+
+    setCustomerName('')
+    setEmail('')
+    setTicketMessage('')
   }
 
   return (
-    <div style={{ padding: '20px', maxWidth: '600px', margin: '0 auto' }}>
-      <h1>Submit Support Ticket</h1>
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-6">
+      <div className="bg-white shadow-xl rounded-2xl p-8 w-full max-w-2xl">
 
-      {success && (
-        <p style={{ color: 'green' }}>
-          Ticket submitted successfully!
+        <h1 className="text-3xl font-bold text-center mb-2">
+          Submit Support Ticket
+        </h1>
+
+        <p className="text-gray-500 text-center mb-8">
+          Tell us about your issue and our AI support system will review it instantly.
         </p>
-      )}
 
-      <form onSubmit={handleSubmit}>
-        <div style={{ marginBottom: '15px' }}>
-          <input
-            type="text"
-            placeholder="Your Name"
-            value={customer_name}
-            onChange={(e) => setCustomerName(e.target.value)}
-            required
-            style={{
-              width: '100%',
-              padding: '10px',
-            }}
-          />
-        </div>
+        <form onSubmit={handleSubmit} className="space-y-5">
 
-        <div style={{ marginBottom: '15px' }}>
-          <input
-            type="email"
-            placeholder="Your Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            style={{
-              width: '100%',
-              padding: '10px',
-            }}
-          />
-        </div>
+          <div>
+            <label className="block mb-2 font-medium">
+              Full Name
+            </label>
 
-        <div style={{ marginBottom: '15px' }}>
-          <textarea
-            placeholder="Describe your issue"
-            value={ticket_message}
-            onChange={(e) => setTicketMessage(e.target.value)}
-            required
-            rows={6}
-            style={{
-              width: '100%',
-              padding: '10px',
-            }}
-          />
-        </div>
+            <input
+              type="text"
+              value={customer_name}
+              onChange={(e) => setCustomerName(e.target.value)}
+              placeholder="Enter your name"
+              className="w-full border rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+          </div>
 
-        <button
-          type="submit"
-          style={{
-            padding: '10px 20px',
-            cursor: 'pointer',
-          }}
-        >
-          Submit Ticket
-        </button>
-      </form>
+          <div>
+            <label className="block mb-2 font-medium">
+              Email Address
+            </label>
+
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Enter your email"
+              className="w-full border rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+          </div>
+
+          <div>
+            <label className="block mb-2 font-medium">
+              Describe Your Issue
+            </label>
+
+            <textarea
+              value={ticket_message}
+              onChange={(e) => setTicketMessage(e.target.value)}
+              placeholder="Explain your problem here..."
+              rows={6}
+              className="w-full border rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold"
+          >
+            Submit Ticket
+          </button>
+
+        </form>
+      </div>
     </div>
   )
 }
