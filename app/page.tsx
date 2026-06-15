@@ -64,12 +64,6 @@ export default function Home() {
             </p>
           </div>
 
-          <Link
-            href="/submit-ticket"
-            className="bg-blue-600 text-white px-5 py-3 rounded-lg hover:bg-blue-700"
-          >
-            Submit New Ticket
-          </Link>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
